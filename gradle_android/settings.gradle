@@ -1,0 +1,3 @@
+rootProject.name = "gradle_android"
+include ':app'
+include ':player'

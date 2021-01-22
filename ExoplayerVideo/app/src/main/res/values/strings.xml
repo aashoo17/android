@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ExoplayerVideo</string>
+    <string name="link">"https://storage.googleapis.com/exoplayer-test-media-0/BigBuckBunny_320x180.mp4"</string>
+    <string name="localhost">"http://10.0.2.2:8080"</string>
+</resources>
