@@ -46,27 +46,26 @@ class MainActivity : AppCompatActivity() {
             //so in turn it ensures that 2nd coroutine is finished before 1st printing the text
             channel.receive()
             //this should printed 2nd
-            Log.d("MAIN","message from 1st coroutines")
+            Log.d("mainActivity","message from 1st coroutines")
         }
         GlobalScope.launch {
             //this should get printd first
-            Log.d("MAIN","message from 2nd coroutines")
+            Log.d("mainActivity","message from 2nd coroutines")
             channel.send(10)
         }
 
         //mutex
         val mux = Mutex()
-        GlobalScope.launch {
-            mux.lock()
-            call(1)
+        //shared varible modified by multiple coroutines
+        var i = 0
+        repeat(1000){
+            GlobalScope.launch {
+                mux.lock()
+                i++
+                mux.unlock()
+            }
+            Log.d("mainActivity",i.toString())
+        }
 
-        }
-        GlobalScope.launch {
-            call(2)
-        }
     }
-}
-
-suspend fun call(a: Int){
-    Log.d("MAIN",a.toString())
 }

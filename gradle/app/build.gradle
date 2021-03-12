@@ -1,0 +1,52 @@
+//TODO: how does plugin is told to be included
+//[all configuration in this file is explained](https://developer.android.com/studio/build)
+plugins {
+    // what does these plugins do
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+//TODO: features of android plugin
+android {
+    //TODO: explain android versioning system
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    //TODO: get default config done
+    defaultConfig {
+        applicationId "com.aashoo17.gradle"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    //TODO: what is its use
+    buildTypes {
+        release {
+            minifyEnabled false
+            //TODO: what is proguard
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //TODO: I know that android ART only supports .class files till java8 also know as java1.8 - why this is specifically told then
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    //TODO: I think as android ART supports java 8 only kotlin has to be told to emit java 1.8 compatible .class file only
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+//TODO: dependency management tells there are many configuration defined
+//like implementation = use these during compilation
+// testImplementation = use these for running tests
+// know more about it
+dependencies {
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+}
