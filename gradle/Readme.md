@@ -1,25 +1,172 @@
-# What is most important
-this is what we will be usually needing - this covers most things
-
-groovy basics - java code, function call, closure uses  
-understand why 2 build.gradle file - what they do, can even there be more  
-android {} block configuration using project structure  
-setting.gradle use case  
-[building app](https://developer.android.com/studio/run)
-[configuring app basics](https://developer.android.com/studio/build)
-
-
-
-
 # Running Gradle Builds
+
+# Android specific topics
+[android app basics](https://developer.android.com/studio/projects)  
+[configure build process](https://developer.android.com/studio/build)
 
 ## groovy basics
 [basics of groovy language](https://medium.com/@andrewMacmurray/a-beginners-guide-to-gradle-26212ddcafa8)
 
-only three key takeaways :
-1. valid java is valid groovy
-2. function call don't need ()
-3. closure can be passed as {}
+android-studio => tools => groovy console  
+we can use it to test groovy code  
+
+```groovy
+//variable
+def a = 10  //dynamic type can be changed from int to any other type
+int b = 10  //type is given and fixed
+x = 10  //TODO: I think this can also be done for variable but check
+
+//function and closure 
+//function without type we just expect correct type is given or can be checked to run code if type is correct  
+def call(cl){
+    cl()
+}
+//function with types
+void call2(Closure cl){
+    cl()    
+}         
+
+//these functions call will work on call2() also
+call({print("Hello")})      //passing closure
+call {print("Hello")}         //  closure but call's () is ommited for any function we can omit this in groovy
+call {print "Hello"}         //print function () is also omitted
+
+call2({print("Hello")})      //passing closure
+call2 {print("Hello")}         //  closure but call's () is ommited for any function we can omit this in groovy
+call2 {print "Hello"}         //print function () is also omitted
+
+//closure
+//can be defined inside {} and called like finction with ()
+//TODO: what about .call() syntax over closure
+
+//putting variable value inside string
+int c = 10
+String d = "hello$x"    //value is put using $ before name as $x
+```
+## project, module, sourcesets
+
+[look at fugure 2 inside this link to understand project, module, sourceset](https://developer.android.com/studio/build)
+
+project = entire app  
+module = small-small units making the entire app even one is capable to produce entire android app  
+sourcesets = structure how your code and resources are kept in folder this helps in compilation
+
+## compilation in android app
+
+[figure 1 explains the compilation process out od code+res etc](https://developer.android.com/studio/build)
+
+## gradle.settings file
+all module dependencies are described here say we have 2 module app(default one) and player  
+then we say  
+include ":app", ":player"
+
+or seperately
+include ":app"
+include ":player"
+
+## build.gradle
+this file used by gradle to run tasks to do some thing  
+at min we have 2 build.gradle file
+1. for project
+2. for default module called app
+
+if we add more module we will get more build.gradle files
+
+### project/top level build.gradle
+buildScript = gradle doesn't have capability to compile android app or kotlin/java code at base level    
+so we need plugins that is described inside this block as well as from where they can be downloaded
+
+ext block = set up variables etc which can be used in anywhere such as project/modules
+```groovy
+ext {
+    // The following are only a few examples of the types of properties you can define.
+    compileSdkVersion = 28
+    // You can also create properties to specify versions for dependencies.
+    // Having consistent versions between modules can avoid conflicts with behavior.
+    supportLibVersion = "28.0.0"
+}
+
+```
+
+allProjects = this configures dependencies and remote server for downloading them for all modules
+[gradle buildScript vs allProjects](https://stackoverflow.com/questions/30158971/whats-the-difference-between-buildscript-and-allprojects-in-build-gradle)
+
+### module level build.gradle
+plugins = which defines plugins to be used with id block
+
+id 'com.android.application' = this tells to use application plugin which will in turn provide many blocks to setup like android block
+
+android block = set up android specific settings  
+buildTypes = configure/apply these settings when debug/release kind of build happening
+```groovy
+buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+```
+
+productFlavors = here we can specify different apks such as free/paid and others and specify settings  
+flavorDimensions = TODO: why it is required when productFlavors is used
+```groovy
+//TODO: find out about flavorDimensions
+flavorDimensions "tier"
+  productFlavors {
+    free {
+      dimension "tier"
+      applicationId 'com.example.myapp.free'
+    }
+
+    paid {
+      dimension "tier"
+      applicationId 'com.example.myapp.paid'
+    }
+  }
+
+```
+
+dependencies = specify all dependencies your module depends upon
+
+```groovy
+dependencies {
+    // Dependency on a local library module
+    implementation project(":mylibrary")
+
+    // Dependency on local binaries
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Dependency on a remote binary
+    implementation 'com.example.android:app-magic:12.3'
+}
+
+```
+
+## gradle.properties and local.properties
+gradle.properties = settings related to gradle itself like heap size etc  
+local.properties = local env properties such as sdk/ndk/cmake locations
+
+## File => Project Structure
+so what happens we have to remember all the blocks name and then type of settings we can give the most important ones can be given using GUI  
+from File => Project Structure
+
+Project = specify gradle version etc
+SDK Location = as the name suggests location of SDK
+Variables = create variables
+Modules = module specific settings
+Dependencies = can search for dependecies here and attach in gradle file
+Build Variants = productFlavor concept is setup here
+
+## gradle android plugin
+
+[build and run android app](https://developer.android.com/studio/run)  
+[configure android build](https://developer.android.com/studio/build)
+
+
+
+
+
+# General gradle topics
 
 ## build properties
 
@@ -129,8 +276,7 @@ learn about kotlin DSL used in gradle
 [DSL in kotlin part 1](https://proandroiddev.com/writing-dsls-in-kotlin-part-1-7f5d2193f277)  
 [DSL in kotlin part 2](https://proandroiddev.com/writing-dsls-in-kotlin-part-2-cd9dcd0c4715)
 
+## gradle wrapper
+gradlew and gradlew.bat files  
 
-## gradle android plugin
 
-[build and run android app](https://developer.android.com/studio/run)  
-[configure android build](https://developer.android.com/studio/build)
