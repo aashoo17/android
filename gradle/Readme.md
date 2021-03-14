@@ -1,8 +1,26 @@
 # Running Gradle Builds
 
 # Android specific topics
-[android app basics](https://developer.android.com/studio/projects)  
 [configure build process](https://developer.android.com/studio/build)
+**how android app is compiled**  
+**project, module and sourcesets**  
+look at figure 2 inside this link to understand project, module, sourceset  
+
+project = entire app  
+module = small-small units making the entire app even one is capable to produce entire android app  
+sourcesets = structure how your code and resources are kept in folder this helps in compilation
+**settings.gradle**  
+**explain build.gradle file of android - project level & module levels**  
+**gradle.properties** 
+**local.properties**  
+
+**add dependency**
+**configure build variants**  
+**inspect your .apk using apkanalyzer**  
+
+[android app basics](https://developer.android.com/studio/projects)  
+**explain the simple app directories**  
+**android modules**
 
 ## groovy basics
 [basics of groovy language](https://medium.com/@andrewMacmurray/a-beginners-guide-to-gradle-26212ddcafa8)
@@ -43,13 +61,6 @@ call2 {print "Hello"}         //print function () is also omitted
 int c = 10
 String d = "hello$x"    //value is put using $ before name as $x
 ```
-## project, module, sourcesets
-
-[look at fugure 2 inside this link to understand project, module, sourceset](https://developer.android.com/studio/build)
-
-project = entire app  
-module = small-small units making the entire app even one is capable to produce entire android app  
-sourcesets = structure how your code and resources are kept in folder this helps in compilation
 
 ## compilation in android app
 
@@ -76,7 +87,7 @@ if we add more module we will get more build.gradle files
 buildScript = gradle doesn't have capability to compile android app or kotlin/java code at base level    
 so we need plugins that is described inside this block as well as from where they can be downloaded
 
-ext block = set up variables etc which can be used in anywhere such as project/modules
+ext (called as extra) block = set up variables etc which can be used in anywhere such as project/modules
 ```groovy
 ext {
     // The following are only a few examples of the types of properties you can define.
@@ -162,7 +173,8 @@ Build Variants = productFlavor concept is setup here
 [build and run android app](https://developer.android.com/studio/run)  
 [configure android build](https://developer.android.com/studio/build)
 
-
+[gradle android plugin api](https://developer.android.com/reference/tools/gradle-api/7.0/classes)  
+**from this learn all possible syntax we can use in android{} block**  
 
 
 
@@ -278,5 +290,6 @@ learn about kotlin DSL used in gradle
 
 ## gradle wrapper
 gradlew and gradlew.bat files  
+[gradle wrapper explained](https://docs.gradle.org/current/userguide/gradle_wrapper.html)  
 
 
