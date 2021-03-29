@@ -1,0 +1,4 @@
+include ':navigation'
+include ':fragment'
+include ':app'
+rootProject.name = "Activity"

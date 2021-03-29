@@ -1,0 +1,3 @@
+include ':uivisibility'
+include ':app'
+rootProject.name = "UI"

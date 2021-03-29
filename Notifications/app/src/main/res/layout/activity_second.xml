@@ -9,7 +9,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="I am designed to be invoked from notification in the MainACtivity"
+        android:text="I am designed to be invoked from notification in the MainActivity"
+        android:textColor="#19CD7F"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

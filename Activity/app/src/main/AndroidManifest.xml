@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aashoo17.activity">
+    <!--
+    permission to be requested at install time
+    Specifies a system permission that the user must grant in order for the app to operate correctly.
+    some permission are just to put here and not critical android will give permission directly
+    critical ones like gallery, network, location etc...are asked from user
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="false"
+        android:theme="@style/Theme.Activity">
+        <activity android:name=".BundleActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".IntentActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- [all possible attributes list which can be passed in activity](https://developer.android.com/guide/topics/manifest/activity-element) -->
+        <activity android:name=".LifecycleActivity">
+
+            <!--
+             Specifies the types of intents that an activity, service, or broadcast receiver can respond to
+             when implicit intents are received
+             action, category, data can specify all that
+             action: only tells very generic things
+             category: makes action a more specific
+             data: makes action + category very specific what can be handled
+            -->
+            <intent-filter>
+
+                <!--
+                 A string that specifies the generic action to perform (such as view or pick).
+                 broadcast we will handle mostly at runtime rather than in manifest so i listing only few of them here just for knowing
+                ACTION_AIRPLANE_MODE_CHANGED - Broadcast Action: The user has switched the phone into or out of Airplane Mode
+                ACTION_ANSWER - Activity Action: Handle an incoming phone call.
+                ACTION_BATTERY_CHANGED - Broadcast Action: This is a sticky broadcast containing the charging state, level, and other information about the battery.
+                ACTION_BATTERY_LOW - Broadcast Action: Indicates low battery condition on the device.
+                ACTION_BATTERY_OKAY - Broadcast Action: Indicates the battery is now okay after being low
+                ACTION_CALL - Activity Action: Perform a call to someone specified by the data.
+                ACTION_CREATE_DOCUMENT - Activity Action: Allow the user to create a new document
+                ...
+                learn all here
+                [all possible actions query](https://developer.android.com/reference/android/content/Intent)
+                -->
+                <action android:name="android.intent.action.MAIN" />
+                <!--
+                A string containing additional information about the kind of component that should handle the intent
+                [explains categotry tag fields](https://developer.android.com/reference/android/content/Intent)
+                CATEGORY_LAUNCHER - this tells that will be launched as top level activity
+                apart from launcher category others will mostly tell when this activity can be launched when implicit intent is received
+                CATEGORY_APP_BROWSER - launch when implicit browser intent is made
+                CATEGORY_APP_CALCULATOR - calculator
+                CATEGORY_APP_CALENDAR - calendar
+                CATEGORY_APP_CONTACTS - contacts can be handled
+                CATEGORY_APP_EMAIL - email can be handled
+                CATEGORY_APP_FILES - file browse etc
+                CATEGORY_APP_GALLERY - gallery app
+                CATEGORY_APP_MAPS - maps
+                CATEGORY_APP_MARKET - can be used to download apps
+                CATEGORY_APP_MESSAGING - message handling
+                CATEGORY_APP_MUSIC - music player
+                -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -11,15 +11,19 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     //these properties are made inside activity for all func to have access
-    val notificationId = 0     //id of the notification which is being sent,
-    lateinit var notificationManager: NotificationManager;
-
+    private val notificationId = 0     //id of the notification which is being sent,
+    lateinit var notificationManager: NotificationManager
+    lateinit var sendNotificationButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //get the button from the resource id
-        val sendNotificationButton = findViewById<Button>(R.id.button)
+        sendNotificationButton = findViewById(R.id.button)
+    }
+
+    override fun onStart() {
+        super.onStart()
         //attach a click listener
         sendNotificationButton.setOnClickListener{
             //send notifications: call this user defined function to send notifications
@@ -37,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
     //write notifications sending function
 
-    fun sendNotification(){
+    private fun sendNotification(){
         //notification channel
         //so an app can send notifications over variuos channels: say i can name them channel_1, channel_2 or something random like important_channel
         //all the notifications on one particular channel can be made to have same properties:
@@ -51,30 +55,30 @@ class MainActivity : AppCompatActivity() {
         val channelId = "10"
         val channel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel(channelId,"notification_1",NotificationManager.IMPORTANCE_HIGH).apply {
-                enableLights(true)
-                lightColor = Color.RED
-                enableVibration(true)
-                description = "from channel 1"
-            }
+                    enableLights(true)
+                    lightColor = Color.RED
+                    enableVibration(true)
+                    description = "from channel 1"
+                }
         } else {
             TODO("VERSION.SDK_INT < O")
         }
-        //create notification channel using this call
+
+        //create notification channel using this call only required for Build.VERSION.SDK_INT < Build.VERSION_CODES.O
         notificationManager.createNotificationChannel(channel)
 
         //create notification, customize it to your liking here
-        val notificationBuilder = Notification.Builder(this,channelId).apply {
+        val notification = Notification.Builder(this,channelId).apply {
             setContentTitle("You have been notified")
             setContentText("This is your notification text")
             setSmallIcon(R.drawable.ic_stat_name)
         }
         //send notification
-
-        notificationManager.notify(notificationId,notificationBuilder.build())
+        notificationManager.notify(notificationId,notification.build())
     }
     //TODO: implement logic that update and cancel notification button are disabled until notification is sent earlier
     //implement notification updation logic for a previously sent notification
-    fun updateNotification(){
+    private fun updateNotification(){
         val channel_id = "10"
         val notificationBuilder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Notification.Builder(this,channel_id).apply {
@@ -88,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         notificationManager.notify(notificationId,notificationBuilder.build())
     }
     //cancel the sent notification
-    fun cancelNotification(){
+    private fun cancelNotification(){
         notificationManager.cancel(notificationId)
     }
 
